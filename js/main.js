@@ -1,6 +1,8 @@
+//Obtener elementos
 var t = document.getElementById("turn");
 var v = document.getElementById("vent");
 
+//Obtener path's de los childs por separado
 var database = firebase.database();
 var turno = database.ref("turno");
 var desp = database.ref("desp");
@@ -11,12 +13,14 @@ var reg = database.ref("registro");
 '|||||||||||||||||||||||||||||       Metodo       |||||||||||||||||||||||||||||'
 '=============================================================================='
 
-/*
+
+/*==============================================================================
 turno = direccion de firebase
 t     = elemento del documento donde va "turnos"
 turn  = numero de turno
-*/
 
+Descripción: Genera un nuevo turno en función del turno actual
+==============================================================================*/
 function genTurn() {
   turno.once('value').then(function(snapshot){
     var t = document.getElementById("turno");
@@ -25,22 +29,27 @@ function genTurn() {
   })
 }
 
-/*
+/*==============================================================================
 x = numero de turno
-*/
 
+Descripción: Actualiza el turno en la base de datos
+==============================================================================*/
 function setTurn(x){
   turno.child('turn').set(x+1);
 }
 
 
 
-/*
+/*==============================================================================
 v = elemento ventanillas del documento
 min = ventanilla con menor cantidad de
 x = turno a guardar
 y = desplazamiento de turnos
-*/
+
+Descripción: Asigna la ventanilla con menor cola, a la vez que recibe los dos
+para posteriormente pasarlos a "newData" y "guardaTurno" para la actualizacion del nuevo turno en el registro
+de los últimos 4.
+==============================================================================*/
 
 function asignaVen(x,y) {
   setTurn(x);
@@ -64,19 +73,24 @@ function asignaVen(x,y) {
   })
 }
 
-/*
+/*==============================================================================
 y = ventana (hijo)
 z = valor de la ventana
-*/
+
+Descripción: Actualiza la cola de la ventanilla
+==============================================================================*/
 
 function actualizaVen(y,z) {
   ventanillas.child(y).set(z+1);
 }
 
-/*
+/*==============================================================================
 x = turno
 y = ventanilla
-*/
+
+Descripción: Desplaza los primeros 3 turnos 1 posición para dejar espacio para
+el nuevo turno, y luego lo guarda en la primer posición.
+==============================================================================*/
 
 function guardaTurno(x,y) {
   reg.once('value').then(function(snapshot){
@@ -92,7 +106,15 @@ function guardaTurno(x,y) {
   })
 }
 
+/*==============================================================================
+t1 = Último turno
+t2 = Penúltimo turno
+t3 = Antepenúltimo turno
+t4 = Anteantepenúltimo turno
 
+Descripción: Obtiene los elementos del documento y luego los actualiza con la
+información correcta.
+==============================================================================*/
 function actualizaTurnos(){
   var t1 = document.getElementById("0");
   var t2 = document.getElementById("1");
