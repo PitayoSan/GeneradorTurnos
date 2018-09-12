@@ -48,7 +48,7 @@ h1 {
 .contenedor {
   float: right;
   position: relative;
-  left: -50%;
+  right: 20%;
   background-color: #acf5ff;
   padding: 25px;
 }

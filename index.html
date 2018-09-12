@@ -20,9 +20,17 @@
   <body>
     <div class="contenedor">
       <p id="clock"></p>
-      <button class="button" onclick="genTurn()"><span>Generar turno</span></button><br>
+      <button class="button" onclick="genTurn()"><span>Generar turno</span></button><br><br />
       Turno:<turno id="turno"></turno><br>
       Ventanilla:<vent id="vent"></vent><br>
     </div>
-  </body>
+    <div class="contenedor">
+      <ol>
+        <li id="0"></li>
+        <li id="1"></li>
+        <li id="2"></li>
+        <li id="3"></li>
+      </ol>
+    </div>
+  </body onload="actualizaTurnos()">
 </html>
