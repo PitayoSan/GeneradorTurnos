@@ -21,7 +21,7 @@ function genTurn() {
   turno.once('value').then(function(snapshot){
     var t = document.getElementById("turno");
     t.innerHTML = snapshot.child('turn').val()+snapshot.child('desp').val();
-    asignaVen(snapshot.child('turn').val());
+    asignaVen(snapshot.child('turn').val(),snapshot.child('desp').val());
   })
 }
 
@@ -39,9 +39,10 @@ function setTurn(x){
 v = elemento ventanillas del documento
 min = ventanilla con menor cantidad de
 x = turno a guardar
+y = desplazamiento de turnos
 */
 
-function asignaVen(x) {
+function asignaVen(x,y) {
   setTurn(x);
   ventanillas.once('value').then(function(snapshot){
     var v = document.getElementById("vent");
@@ -59,7 +60,7 @@ function asignaVen(x) {
     };
     var updates = {};
     updates[firebase.database]
-    guardaTurno(x,min);
+    guardaTurno(x+y,min);
   })
 }
 

@@ -41,14 +41,10 @@ h1 {
   color: blue;
 }
 
-.turnos {
-
-}
-
 .contenedor {
   float: right;
   position: relative;
-  right: 20%;
+  left: -50%;
   background-color: #acf5ff;
   padding: 25px;
 }
@@ -59,7 +55,7 @@ h1 {
 
 body {
   font-family: "Lucida Console";
-  font-size: 12px;
+  font-size: 18px;
 }
 
 a:link {
