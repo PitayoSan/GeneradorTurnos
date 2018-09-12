@@ -49,24 +49,40 @@ h1 {
   float: right;
   position: relative;
   left: -50%;
-  background-color: gray;
+  background-color: #acf5ff;
+  padding: 25px;
 }
 
 .info {
 
 }
 
-.outer {
-    float: right;
-    position: relative;
-    left: -50%;
+body {
+  font-family: "Lucida Console";
+  font-size: 12px;
 }
 
-.inner {
-    position: relative;
-    left: 50%;
+a:link {
+  text-decoration: none;
+  color: #414141
 }
 
-.inner > li {
-    float: left;
+a:visited {
+  text-decoration: none;
+  color: #414141
+}
+
+a:active {
+  text-decoration: none;
+  color: #414141
+}
+
+a:hover {
+  text-decoration: underline
+}
+
+.header {
+  color: #414141;
+  margin: 0px;
+  padding: 0px;
 }

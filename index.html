@@ -2,11 +2,28 @@
 <html>
   <head>
       <link href="css/style.css" rel="stylesheet">
+      <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+      <script>
+        var config = {
+          apiKey: "AIzaSyC0dLvHkyQCJELLrYmBC9MBd4c_wUp8LZ8",
+          authDomain: "turngen-8538f.firebaseapp.com",
+          databaseURL: "https://turngen-8538f.firebaseio.com",
+          projectId: "turngen-8538f",
+          storageBucket: "turngen-8538f.appspot.com",
+          messagingSenderId: "830575396020"
+        };
+        firebase.initializeApp(config);
+      </script>
+      <script src="js/main.js"></script>
       <title>Generador de turnos</title>
   </head>
   <body>
     <div class="contenedor">
-      <button class="button"><span>Generar turno</span></button>
+      <p id="clock"></p>
+      <button class="button" onclick="genTurn()"><span>Generar turno</span></button><br>
+      <button class="button" onclick="refresh()"><span>Refresh</span></button>
+      Turno:<turno id="turno"></turno><br>
+      Ventanilla:<vent id="vent"></vent><br>
     </div>
   </body>
 </html>
