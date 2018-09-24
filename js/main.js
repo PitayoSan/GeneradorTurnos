@@ -1,8 +1,4 @@
-//Obtener elementos
-var t = document.getElementById("turn");
-var v = document.getElementById("vent");
-
-//Obtener path's de los childs por separado
+/*    Obtener path's de los childs por separado    */
 var database = firebase.database();
 var turno = database.ref("turno");
 var desp = database.ref("desp");
@@ -24,10 +20,41 @@ Descripción: Genera un nuevo turno en función del turno actual
 function genTurn() {
   turno.once('value').then(function(snapshot){
     var t = document.getElementById("turno");
-    t.innerHTML = snapshot.child('turn').val()+snapshot.child('desp').val();
-    asignaVen(snapshot.child('turn').val(),snapshot.child('desp').val());
+    var nTurno= snapshot.child('turn').val()+1;
+    t.innerHTML = nTurno + snapshot.child('desp').val();
+    setTurn(nTurno);
+    queueTurn(nTurno);
   })
 }
+
+
+/*==============================================================================
+x = turno generado
+
+Descripción: Guarda el ultimo dato en una queue.
+==============================================================================*/
+
+function queueTurn(x) {
+  reg.once('value').then(function(snapshot){
+    var nSnap=snapshot.numChildren();
+    if(nSnap==0){
+      reg.child(1).set(x);
+    } else {
+      reg.child(nSnap+1).set(x);
+    }
+  })
+}
+
+function dequeueTurn() {
+  reg.once('value').then(function(snapshot){
+    var nSnap=snapshot.numChildren();
+    for(i=1;i<nSnap;i++){
+      reg.child(i).set(snapshot.child(i+1).val());
+    }
+    reg.child(nSnap).remove();
+  })
+}
+
 
 /*==============================================================================
 x = numero de turno
@@ -35,43 +62,16 @@ x = numero de turno
 Descripción: Actualiza el turno en la base de datos
 ==============================================================================*/
 function setTurn(x){
-  turno.child('turn').set(x+1);
+  turno.child('turn').set(x);
 }
-
-
 
 /*==============================================================================
-v = elemento ventanillas del documento
-min = ventanilla con menor cantidad de
-x = turno a guardar
-y = desplazamiento de turnos
 
-Descripción: Asigna la ventanilla con menor cola, a la vez que recibe los dos
-para posteriormente pasarlos a "newData" y "guardaTurno" para la actualizacion del nuevo turno en el registro
-de los últimos 4.
 ==============================================================================*/
+function check4Win(){
 
-function asignaVen(x,y) {
-  setTurn(x);
-  ventanillas.once('value').then(function(snapshot){
-    var v = document.getElementById("vent");
-    var min = 1;
-    for(i=1;i<=snapshot.numChildren();i++){
-      if(snapshot.child(min).val()>snapshot.child(i).val()){
-        min=i;
-      }
-    }
-    v.innerHTML = min;
-    actualizaVen(min,snapshot.child(min).val());
-    var newData = {
-      turn: x,
-      ven: min
-    };
-    var updates = {};
-    updates[firebase.database]
-    guardaTurno(x+y,min);
-  })
 }
+
 
 /*==============================================================================
 y = ventana (hijo)
@@ -80,8 +80,11 @@ z = valor de la ventana
 Descripción: Actualiza la cola de la ventanilla
 ==============================================================================*/
 
-function actualizaVen(y,z) {
-  ventanillas.child(y).set(z+1);
+function actualizaVen(ven) {
+  turno.once('value').then(function(snapshot){
+    var nTurno=snapshot.child('turn').val();
+  })
+  ventanillas.child(ven).set(nTurno);
 }
 
 /*==============================================================================
@@ -102,7 +105,6 @@ function guardaTurno(x,y) {
       "ven": y
     };
     reg.child(0).update(newData);
-    actualizaTurnos();
   })
 }
 
@@ -120,13 +122,80 @@ function actualizaTurnos(){
   var t2 = document.getElementById("1");
   var t3 = document.getElementById("2");
   var t4 = document.getElementById("3");
-  reg.once('value').then(function(snapshot){
-    t1.innerHTML = "Turno: " + snapshot.child(0).child('turn').val() + " | Ventanilla: " + snapshot.child(0).child('ven').val();
-    t2.innerHTML = "Turno: " + snapshot.child(1).child('turn').val() + " | Ventanilla: " + snapshot.child(0).child('ven').val();
-    t3.innerHTML = "Turno: " + snapshot.child(2).child('turn').val() + " | Ventanilla: " + snapshot.child(0).child('ven').val();
-    t4.innerHTML = "Turno: " + snapshot.child(3).child('turn').val() + " | Ventanilla: " + snapshot.child(0).child('ven').val();
+  ventanillas.once('value').then(function(snapshot){
+    t1.innerHTML = "Turno: " + snapshot.child(1).val() + " | Ventanilla: 1";
+    t2.innerHTML = "Turno: " + snapshot.child(2).val() + " | Ventanilla: 2";
+    t3.innerHTML = "Turno: " + snapshot.child(3).val() + " | Ventanilla: 3";
+    t4.innerHTML = "Turno: " + snapshot.child(4).val() + " | Ventanilla: 4";
   })
 }
+
+
+/*==============================================================================
+Descripción:
+==============================================================================*/
+
+function asignaVenByID(ven){
+  reg.once('value').then(function(snapshot){
+    if(snapshot.child(1).val()!=null){
+      ventanillas.child(ven).set(snapshot.child(1).val());
+    } else {
+      console.log("No hay turnos disponibles")
+    }
+    dequeueTurn();
+  })
+}
+
+
+/*==============================================================================
+Descripción: Actualiza el estado de una ventanilla a "false" (ocupado) y es
+asignado un turno a ella
+==============================================================================*/
+function available1(){
+  ventanillas.once('value').then(function(snapshot){
+    if(snapshot.child(1).val() != true){
+      ventanillas.child(1).set(true);
+      asignaVenByID(1);
+    } else {
+      asignaVenByID(1);
+    }
+  })
+}
+function available2(){
+  ventanillas.once('value').then(function(snapshot){
+    if(snapshot.child(2).val() != true){
+      ventanillas.child(2).set(true);
+      asignaVenByID(2);
+    } else {
+      asignaVenByID(2);
+    }
+  })
+}
+function available3(){
+  ventanillas.once('value').then(function(snapshot){
+    if(snapshot.child(3).val() != true){
+      ventanillas.child(3).set(true);
+      asignaVenByID(3);
+    } else {
+        asignaVenByID(3);
+    }
+  })
+}
+function available4(){
+  ventanillas.once('value').then(function(snapshot){
+    if(snapshot.child(4).val() != true){
+      ventanillas.child(4).set(true);
+      asignaVenByID(4);
+    } else {
+      asignaVenByID(4);
+    }
+  })
+}
+
+
+
+
+
 
 
 
