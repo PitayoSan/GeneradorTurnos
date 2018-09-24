@@ -159,6 +159,7 @@ function available1(){
     } else {
       asignaVenByID(1);
     }
+    actualizaTurnos();
   })
 }
 function available2(){
@@ -169,6 +170,7 @@ function available2(){
     } else {
       asignaVenByID(2);
     }
+    actualizaTurnos();
   })
 }
 function available3(){
@@ -179,6 +181,7 @@ function available3(){
     } else {
         asignaVenByID(3);
     }
+    actualizaTurnos();
   })
 }
 function available4(){
@@ -189,6 +192,7 @@ function available4(){
     } else {
       asignaVenByID(4);
     }
+    actualizaTurnos();
   })
 }
 
