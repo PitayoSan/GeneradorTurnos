@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link href="css/style.css" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
+  <script>
+    var config = {
+      apiKey: "AIzaSyC0dLvHkyQCJELLrYmBC9MBd4c_wUp8LZ8",
+      authDomain: "turngen-8538f.firebaseapp.com",
+      databaseURL: "https://turngen-8538f.firebaseio.com",
+      projectId: "turngen-8538f",
+      storageBucket: "turngen-8538f.appspot.com",
+      messagingSenderId: "830575396020"
+    };
+    firebase.initializeApp(config);
+  </script>
+  <script src="js/admin.js"></script>
+  <title>Gerencia</title>
+</head>
+<body>
+  <div class="contenedorWin">
+    <button class="buttonWin" onclick="available1()">1</button>
+    <button class="buttonWin" onclick="available2()">2</button>
+    <button class="buttonWin" onclick="available3()">3</button>
+    <button class="buttonWin" onclick="available4()">4</button>
+  </div>
+  <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+  <div class="contenedorWin">
+    <input type="text" id="tfDesp" class="textField"><button class="button">Cambiar</button>
+  </div>
+  <a href="index.html"><button class="button">Vista Cliente</button></a>
+</body>
+</html>

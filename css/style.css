@@ -1,3 +1,11 @@
+.textField {
+  text-align: center;
+  font-size: 18px;
+  padding: 10px;
+  width: 200px;
+  margin: 5px;
+}
+
 .button {
   border-radius: 4px;
   background-color: #f4511e;

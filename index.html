@@ -17,10 +17,10 @@
       <script src="js/main.js"></script>
       <title>Generador de turnos</title>
   </head>
-  <body>
+  <body onload="actualizaTurnos()">
     <div class="contenedor">
       <p id="clock"></p>
-      <button class="button" onclick="genTurn()"><span>Generar turno</span></button><br><br />
+
       Turno:<turno id="turno"></turno><br>
       Ventanilla:<vent id="vent"></vent><br>
     </div>
@@ -33,15 +33,6 @@
       </ol>
     </div>
     <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <div class="contenedorWin">
-      <button class="buttonWin" onclick="available1()">1</button>
-      <button class="buttonWin" onclick="available2()">2</button>
-      <button class="buttonWin" onclick="available3()">3</button>
-      <button class="buttonWin" onclick="available4()">4</button>
-    </div>
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <div class="contenedor">
-      <button class="button" onclick="actualizaTurnos()">Actualizar</button>
-    </div>
-  </body onload="actualizaTurnos()">
+    <a href="admin.html"><button class="button">Administrador</button></a>
+  </body>
 </html>
