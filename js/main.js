@@ -42,11 +42,12 @@ ventanillas.on('value', function(snapshot) {
     }
   }
   var infMax=max-1;
+  var venPenUlt=maxVen;
   for(var j=2;j<5;j++){
     if(snapshot.child(j).val()==infMax){
-      var venPenUlt=j;
+      venPenUlt=j;
     }
   }
-  document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + (max + snapshot.child("desp").val()) + " | Ventanilla: " + maxVen;
-  document.getElementById("pultT").innerHTML = "Penultimo turno: " + (infMax + snapshot.child("desp").val()) + " | Ventanilla: " + venPenUlt;
+  document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + (max + snapshot.child("desp").val())%100 + " | Ventanilla: " + maxVen;
+  document.getElementById("pultT").innerHTML = "Penultimo turno: " + (infMax + snapshot.child("desp").val())%100 + " | Ventanilla: " + venPenUlt;
 })

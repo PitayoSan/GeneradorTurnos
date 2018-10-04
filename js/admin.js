@@ -27,7 +27,7 @@ x = numero de turno
 Descripción: Actualiza el turno en la base de datos
 ==============================================================================*/
 function setTurn(x){
-  turno.child('turn').set(x%100);
+  turno.child('turn').set(x);
 }
 
 /*==============================================================================
