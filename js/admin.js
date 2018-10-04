@@ -36,7 +36,7 @@ Descripción:
 
 function asignaVenByID(ven){
   turno.once('value').then(function(snapshot){
-      ventanillas.child(ven).set(snapshot.child("turn").val()+snapshot.child("desp").val());
+      ventanillas.child(ven).set((snapshot.child("turn").val()+snapshot.child("desp").val())%100);
   })
 }
 
@@ -104,4 +104,5 @@ function available4(){
 
 function updateDesp() {
   turno.child("desp").set(parseInt(document.getElementById("tfDesp").value));
+  document.getElementById("tfDesp").value = "";
 }
