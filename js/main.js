@@ -48,6 +48,6 @@ ventanillas.on('value', function(snapshot) {
       venPenUlt=j;
     }
   }
-  document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + (max + snapshot.child("desp").val())%100 + " | Ventanilla: " + maxVen;
-  document.getElementById("pultT").innerHTML = "Penultimo turno: " + (infMax + snapshot.child("desp").val())%100 + " | Ventanilla: " + venPenUlt;
+  document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + max.val()%100 + " | Ventanilla: " + maxVen;
+  document.getElementById("pultT").innerHTML = "Penultimo turno: " + infMax%100 + " | Ventanilla: " + venPenUlt;
 })
