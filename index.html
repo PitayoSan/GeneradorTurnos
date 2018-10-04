@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
       <link href="css/style.css" rel="stylesheet">
       <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
       <script>
@@ -17,22 +18,34 @@
       <script src="js/main.js"></script>
       <title>Generador de turnos</title>
   </head>
-  <body onload="actualizaTurnos()">
-    <div class="contenedor">
-      <p id="clock"></p>
+  <body>
+    <div class="form-group">
+      <div class="row">
+        <div class="alert-info col-md-6">
+          <h2 class="alert alert-info text-right display-4">Bienvenido al generador de turnos.</h2>
+        </div>
+        <div class="alert-info col-md-6 d">
+          <h1 id="clock" class="alert alert-info display-1"></h1>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="row">
+        <div class="offset-4 col-md-3">
+          <ul class="list-group">
+            <li class="list-group-item list-group-item-action list-group-item-primary"><h5 id="ultT"></h5></li>
+            <li class="list-group-item list-group-item-action list-group-item-primary"><h5 id="pultT"></h5></li>
+        </div>
+      </div>
+      <br /><br /><br />
+      <div class="row">
+        <div class="offset-3 col-md-2">
+          <a href="admin.html"><button class="btn btn-outline-danger btn-lg">Vista Admin</button></a>
+        </div>
+    </div>
 
-      Turno:<turno id="turno"></turno><br>
-      Ventanilla:<vent id="vent"></vent><br>
-    </div>
-    <div class="contenedor">
-      <ol>
-        <li id="0"></li>
-        <li id="1"></li>
-        <li id="2"></li>
-        <li id="3"></li>
-      </ol>
-    </div>
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <a href="admin.html"><button class="button">Administrador</button></a>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   </body>
 </html>

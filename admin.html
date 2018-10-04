@@ -1,6 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.1.1/firebaseui.css" />
   <link href="css/style.css" rel="stylesheet">
   <script src="https://www.gstatic.com/firebasejs/5.4.2/firebase.js"></script>
   <script>
@@ -17,17 +20,51 @@
   <script src="js/admin.js"></script>
   <title>Gerencia</title>
 </head>
-<body>
-  <div class="contenedorWin">
-    <button class="buttonWin" onclick="available1()">1</button>
-    <button class="buttonWin" onclick="available2()">2</button>
-    <button class="buttonWin" onclick="available3()">3</button>
-    <button class="buttonWin" onclick="available4()">4</button>
+<body onload="actualizaTurnos()">
+  <div class="form-group">
+    <div class="row">
+      <div class="offset-5 col-md-6 contenedorWin">
+        <button class="btn btn-primary btn-lg" onclick="available1()">Vent 1</button>
+        <button class="btn btn-primary btn-lg" onclick="available2()">Vent 2</button>
+        <br /><br />
+        <button class="btn btn-primary btn-lg" onclick="available3()">Vent 3</button>
+        <button class="btn btn-primary btn-lg" onclick="available4()">Vent 4</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="offset-5 col-md-2 contenedor">
+        <table class="table table-hover">
+          <thead><tr><th>Turnos:</th></tr></thead>
+          <body>
+            <tr class="table-info"><td id="0"></td></tr>
+            <tr class="table-info"><td id="1"></td></tr>
+            <tr class="table-info"><td id="2"></td></tr>
+            <tr class="table-info"><td id="3"></td></tr>
+          </body>
+        </table>
+      </div>
+    </div>
   </div>
-  <br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-  <div class="contenedorWin">
-    <input type="text" id="tfDesp" class="textField"><button class="button">Cambiar</button>
+  <div class="form-group">
+    <div class="row">
+      <div class="offset-5 col-md-2">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <button class="btn btn-outline-primary" type="button" onclick="updateDesp()">Cambiar</button>
+          </div>
+          <input type="text" class="form-control" id="tfDesp" placeholder="Desplazamiento" aria-label="" aria-describedby="basic-addon1">
+        </div>
+      </div>
+    </div>
+    <br />
+    <div class="row">
+      <div class="offset-3 col-md-2">
+        <a href="index.html"><button class="btn btn-outline-danger btn-lg">Vista Cliente</button></a>
+      </div>
+    </div>
   </div>
-  <a href="index.html"><button class="button">Vista Cliente</button></a>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

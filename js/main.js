@@ -4,11 +4,12 @@ var turno = database.ref("turno");
 var desp = database.ref("desp");
 var ventanillas = database.ref("ventanillas");
 var reg = database.ref("registro");
+var t1 = document.getElementById("0");
+var t2 = document.getElementById("1");
 
 '=============================================================================='
 '|||||||||||||||||||||||||||||       Metodo       |||||||||||||||||||||||||||||'
 '=============================================================================='
-
 
 /*==============================================================================
 t1 = Último turno
@@ -19,21 +20,6 @@ t4 = Anteantepenúltimo turno
 Descripción: Obtiene los elementos del documento y luego los actualiza con la
 información correcta.
 ==============================================================================*/
-function actualizaTurnos(){
-  var t  = document.getElementById("turno");
-  var v  = document.getElementById("vent");
-  var t1 = document.getElementById("0");
-  var t2 = document.getElementById("1");
-  var t3 = document.getElementById("2");
-  var t4 = document.getElementById("3");
-  ventanillas.once('value').then(function(snapshot){
-    t1.innerHTML = "Turno: " + snapshot.child(1).val() + " | Ventanilla: 1";
-    t2.innerHTML = "Turno: " + snapshot.child(2).val() + " | Ventanilla: 2";
-    t3.innerHTML = "Turno: " + snapshot.child(3).val() + " | Ventanilla: 3";
-    t4.innerHTML = "Turno: " + snapshot.child(4).val() + " | Ventanilla: 4";
-  })
-}
-
 
 /* reloj */
 // obtenido de: https://codepen.io/Tcip/pen/BNKjeN
@@ -42,22 +28,25 @@ var myVar = setInterval(function() {
 }, 1000);
 
 function myTimer() {
-  var d = new Date();
-  document.getElementById("clock").innerHTML = d.toLocaleTimeString();
+  //var d = new Date();
+  document.getElementById("clock").innerHTML = new Date().toLocaleTimeString();
 }
 
-var myVar2 = setInterval(function() {
-  var firstTime=true;
-  reg.once('value').then(function(snapshot){
-    if(!snapshot.exists()){
-      if(!firstTime){
-        turno.once('value').then(function(snapshot){
-        t.innerHTML = snapshot.child("turn").val() + snapshot.child("desp").val();
-        v.innerHTML = snapshot.child("lastVen").val();
-        firstTime=false;
-        })
-      }
+ventanillas.on('value', function(snapshot) {
+  var max = snapshot.child("1").val();
+  var maxVen = 1;
+  for(var i=2;i<5;i++){
+    if(max<snapshot.child(i).val()){
+      max = snapshot.child(i).val()
+      maxVen=i;
     }
-    actualizaTurnos();
-  })
-}, 5000)
+  }
+  var infMax=max-1;
+  for(var j=2;j<5;j++){
+    if(snapshot.child(j).val()==infMax){
+      var venPenUlt=j;
+    }
+  }
+  document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + (max + snapshot.child("desp").val()) + " | Ventanilla: " + maxVen;
+  document.getElementById("pultT").innerHTML = "Penultimo turno: " + (infMax + snapshot.child("desp").val()) + " | Ventanilla: " + venPenUlt;
+})
