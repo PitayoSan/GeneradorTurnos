@@ -33,21 +33,21 @@ function myTimer() {
 }
 
 ventanillas.on('value', function(snapshot) {
-  var max = snapshot.child("1").val();
+  var maximum = snapshot.child("1").val();
   var maxVen = 1;
   for(var i=2;i<5;i++){
-    if(max<snapshot.child(i).val()){
-      max = snapshot.child(i).val()
+    if(maximum<snapshot.child(i).val()){
+      maximum = snapshot.child(i).val()
       maxVen=i;
     }
   }
-  var infMax=max-1;
+  var infMax=maximum-1;
   var venPenUlt=maxVen;
   for(var j=2;j<5;j++){
     if(snapshot.child(j).val()==infMax){
       venPenUlt=j;
     }
   }
-  document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + max.val()%100 + " | Ventanilla: " + maxVen;
+  document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + maximum%100 + " | Ventanilla: " + maxVen;
   document.getElementById("pultT").innerHTML = "Penultimo turno: " + infMax%100 + " | Ventanilla: " + venPenUlt;
 })
