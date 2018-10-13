@@ -2,10 +2,16 @@
 var database = firebase.database();
 var turno = database.ref("turno");
 var desp = database.ref("desp");
+var nombres = database.ref("nombres");
 var ventanillas = database.ref("ventanillas");
+var venUlt = ventanillas.child("ult");
+var penVenUlt = ventanillas.child("penUlt");
+var ultVal = ventanillas.child("ultVenVal");
+var penUltVal = ventanillas.child("penUltVal");
 var reg = database.ref("registro");
 var t1 = document.getElementById("0");
 var t2 = document.getElementById("1");
+
 
 '=============================================================================='
 '|||||||||||||||||||||||||||||       Metodo       |||||||||||||||||||||||||||||'
@@ -33,21 +39,26 @@ function myTimer() {
 }
 
 ventanillas.on('value', function(snapshot) {
-  var maximum = snapshot.child("1").val();
-  var maxVen = 1;
-  for(var i=2;i<5;i++){
-    if(maximum<snapshot.child(i).val()){
-      maximum = snapshot.child(i).val()
-      maxVen=i;
-    }
-  }
-  var infMax=maximum-1;
-  var venPenUlt=maxVen;
-  for(var j=2;j<5;j++){
-    if(snapshot.child(j).val()==infMax){
-      venPenUlt=j;
-    }
-  }
-  document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + maximum%100 + " | Ventanilla: " + maxVen;
-  document.getElementById("pultT").innerHTML = "Penultimo turno: " + infMax%100 + " | Ventanilla: " + venPenUlt;
+  var ultVen = snapshot.child('ult').val();
+  var penUlt = snapshot.child('penUlt').val();
+  var ultVenVal = snapshot.child('ultVenVal').val();
+  var penUltVal = snapshot.child('penUltVal').val();
+  nombres.once('value').then(function(snapshot){
+    document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + ultVenVal + " | Asistente: " + snapshot.child(ultVen).val();
+    document.getElementById("pultT").innerHTML = "Penultimo turno: " + penUltVal + " | Asistente: " + snapshot.child(penUlt).val();
+  })
+})
+
+penVenUlt.on('value', function(snapshot){
+  var penUltVenVal = snapshot.val();
+  penUltVal.once('value').then(function(snapshot){
+    document.getElementById("pultT").innerHTML = "Penultimo turno: " + penUltVenVal + " | Asistente: " + snapshot.val();
+  })
+})
+
+venUlt.on('value', function(snapshot) {
+  var ultVen = snapshot.val();
+  ultVal.once('value').then(function(snapshot){
+    document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + snapshot.val() + " | Asistente: " + ultVen;
+  })
 })

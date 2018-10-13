@@ -6,6 +6,21 @@ var ven1 = ventanillas.child("1");
 var ven2 = ventanillas.child("2");
 var ven3 = ventanillas.child("3");
 var ven4 = ventanillas.child("4");
+var ven5 = ventanillas.child("5");
+var ven6 = ventanillas.child("6");
+var ven7 = ventanillas.child("7");
+var ven8 = ventanillas.child("8");
+var venUlt = ventanillas.child("ult");
+var penVenUlt = ventanillas.child("penUlt");
+var ultVal = ventanillas.child("ultVenVal");
+var penUltVal = ventanillas.child("penUltVal");
+var penultimo=0;
+
+function getPenUltVenVal() {
+  penVenUlt.once('value').then(function(snapshot){
+    penultimo = snapshot.val();
+  })
+}
 
 
 /*==============================================================================
@@ -17,7 +32,9 @@ Descripción: Genera un nuevo turno en función del turno actual
 ==============================================================================*/
 function genTurn() {
   turno.once('value').then(function(snapshot){
-    setTurn(snapshot.child('turn').val()+1);
+    setTurn(snapshot.val()+1);
+    ventanillas.child('ultVenVal').set(snapshot.val());
+    ventanillas.child('penUltVal').set(snapshot.val()-1);
   })
 }
 
@@ -27,7 +44,7 @@ x = numero de turno
 Descripción: Actualiza el turno en la base de datos
 ==============================================================================*/
 function setTurn(x){
-  turno.child('turn').set(x);
+  turno.set(x);
 }
 
 /*==============================================================================
@@ -35,12 +52,15 @@ Descripción:
 ==============================================================================*/
 
 function asignaVenByID(ven){
+  venUlt.once('value').then(function(snapshot) {
+    ventanillas.child('penUlt').set(penultimo);
+    penultimo = snapshot.val();
+  })
+  venUlt.set(ven);
   turno.once('value').then(function(snapshot){
-      ventanillas.child(ven).set(snapshot.child("turn").val()%100);
+      ventanillas.child(ven).set(snapshot.val()%100);
   })
 }
-
-
 
 /*==============================================================================
 t1 = Último turno
@@ -52,33 +72,36 @@ Descripción: Obtiene los elementos del documento y luego los actualiza con la
 información correcta.
 ==============================================================================*/
 ven1.on('value', function(snapshot){
-  document.getElementById("0").innerHTML = "Turno: " + snapshot.val() + " | Ventanilla: 1";
+  document.getElementById("0").innerHTML = "Turno: " + snapshot.val() + " | Asistente: Chuy";
 })
 
 ven2.on('value', function(snapshot){
-  document.getElementById("1").innerHTML = "Turno: " + snapshot.val() + " | Ventanilla: 2";
+  document.getElementById("1").innerHTML = "Turno: " + snapshot.val() + " | Asistente: Albino";
 })
 
 ven3.on('value', function(snapshot){
-  document.getElementById("2").innerHTML = "Turno: " + snapshot.val() + " | Ventanilla: 3";
+  document.getElementById("2").innerHTML = "Turno: " + snapshot.val() + " | Asistente: Jesús";
 })
 
 ven4.on('value', function(snapshot){
-  document.getElementById("3").innerHTML = "Turno: " + snapshot.val() + " | Ventanilla: 4";
+  document.getElementById("3").innerHTML = "Turno: " + snapshot.val() + " | Asistente: Josué";
 })
 
-function actualizaTurnos(){
-  var t1 = document.getElementById("0");
-  var t2 = document.getElementById("1");
-  var t3 = document.getElementById("2");
-  var t4 = document.getElementById("3");
-  ventanillas.once('value').then(function(snapshot){
-    t1.innerHTML = "Turno: " + snapshot.child(1).val() + " | Ventanilla: 1";
-    t2.innerHTML = "Turno: " + snapshot.child(2).val() + " | Ventanilla: 2";
-    t3.innerHTML = "Turno: " + snapshot.child(3).val() + " | Ventanilla: 3";
-    t4.innerHTML = "Turno: " + snapshot.child(4).val() + " | Ventanilla: 4";
-  })
-}
+ven5.on('value', function(snapshot){
+  document.getElementById("4").innerHTML = "Turno: " + snapshot.val() + " | Asistente: Carlos";
+})
+
+ven6.on('value', function(snapshot){
+  document.getElementById("5").innerHTML = "Turno: " + snapshot.val() + " | Asistente: Lety";
+})
+
+ven7.on('value', function(snapshot){
+  document.getElementById("6").innerHTML = "Turno: " + snapshot.val() + " | Asistente: César";
+})
+
+ven8.on('value', function(snapshot){
+  document.getElementById("7").innerHTML = "Turno: " + snapshot.val() + " | Asistente: Daniel";
+})
 
 
 /*==============================================================================
@@ -101,8 +124,32 @@ function available4(){
   genTurn();
   asignaVenByID(4);
 }
+function available5(){
+  genTurn();
+  asignaVenByID(5);
+}
+function available6(){
+  genTurn();
+  asignaVenByID(6);
+}
+function available7(){
+  genTurn();
+  asignaVenByID(7);
+}
+function available8(){
+  genTurn();
+  asignaVenByID(8);
+}
 
 function updateTurn() {
-  turno.child("turn").set(parseInt(document.getElementById("tfDesp").value));
+  turno.set(parseInt(document.getElementById("tfDesp").value));
   document.getElementById("tfDesp").value = "";
+}
+
+var myVar = setInterval(function() {
+  myTimer();
+}, 1000);
+
+function myTimer() {
+  document.getElementById("clock").innerHTML = new Date().toLocaleTimeString();
 }

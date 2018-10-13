@@ -20,46 +20,60 @@
   <script src="js/admin.js"></script>
   <title>Gerencia</title>
 </head>
-<body onload="actualizaTurnos()">
-  <div class="form-group">
-    <div class="row">
-      <div class="offset-5 col-md-6 contenedorWin">
-        <button class="btn btn-primary btn-lg" onclick="available1()">Vent 1</button>
-        <button class="btn btn-primary btn-lg" onclick="available2()">Vent 2</button>
-        <br /><br />
-        <button class="btn btn-primary btn-lg" onclick="available3()">Vent 3</button>
-        <button class="btn btn-primary btn-lg" onclick="available4()">Vent 4</button>
-      </div>
-    </div>
-    <div class="row">
-      <div class="offset-5 col-md-2 contenedor">
-        <table class="table table-hover">
-          <thead><tr><th>Turnos:</th></tr></thead>
-          <body>
-            <tr class="table-info"><td id="0"></td></tr>
-            <tr class="table-info"><td id="1"></td></tr>
-            <tr class="table-info"><td id="2"></td></tr>
-            <tr class="table-info"><td id="3"></td></tr>
-          </body>
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="row">
-      <div class="offset-5 col-md-2">
-        <div class="input-group mb-3">
-          <div class="input-group-prepend">
-            <button class="btn btn-outline-primary" type="button" onclick="updateTurn()">Cambiar</button>
-          </div>
-          <input type="text" class="form-control" id="tfDesp" placeholder="Desplazamiento" aria-label="" aria-describedby="basic-addon1">
+<body onload="getPenUltVenVal()">
+  <div class="container">
+    <div class="form-group">
+      <div class="row">
+        <div class="alert-info col-md-6">
+          <h2 class="alert alert-info text-right display-4">Vista de administrador.</h2>
+        </div>
+        <div class="alert-info col-md-6 d">
+          <h1 id="clock" class="alert alert-info display-1"></h1>
         </div>
       </div>
-    </div>
-    <br />
-    <div class="row">
-      <div class="offset-3 col-md-2">
-        <a href="index.html"><button class="btn btn-outline-danger btn-lg">Vista Cliente</button></a>
+    </div><hr />
+    <div class="form-group">
+      <div class="row">
+        <div class="offset-1 col-md-4 contenedorWin">
+          <div class="row">
+            <button class="btn btn-primary btn-lg" onclick="available1()">Chuy</button>
+            <button class="btn btn-primary btn-lg" onclick="available2()">Albino</button>
+            <button class="btn btn-primary btn-lg" onclick="available3()">Jesús</button>
+            <button class="btn btn-primary btn-lg" onclick="available4()">Josué</button>
+          </div>
+          <div class="row">
+            <button class="btn btn-primary btn-lg" onclick="available5()">Carlos</button>
+            <button class="btn btn-primary btn-lg" onclick="available6()">Lety</button>
+            <button class="btn btn-primary btn-lg" onclick="available7()">César</button>
+            <button class="btn btn-primary btn-lg" onclick="available8()">Daniel</button>
+          </div><hr />
+          <div class="row">
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <button class="btn btn-outline-primary" type="button" onclick="updateTurn()">Cambiar</button>
+              </div>
+              <input type="text" class="form-control" id="tfDesp" placeholder="Desplazamiento" aria-label="" aria-describedby="basic-addon1">
+            </div>
+          </div>
+          <div class="row">
+            <a href="index.html"><button class="btn btn-outline-danger btn-lg">Vista Cliente</button></a>
+          </div>
+        </div>
+        <div class="col-md-5 contenedor">
+          <table class="table table-hover">
+            <thead><tr><th>Turnos:</th></tr></thead>
+            <body>
+              <tr class="table-info"><td id="0"></td></tr>
+              <tr class="table-info"><td id="1"></td></tr>
+              <tr class="table-info"><td id="2"></td></tr>
+              <tr class="table-info"><td id="3"></td></tr>
+              <tr class="table-info"><td id="4"></td></tr>
+              <tr class="table-info"><td id="5"></td></tr>
+              <tr class="table-info"><td id="6"></td></tr>
+              <tr class="table-info"><td id="7"></td></tr>
+            </body>
+          </table>
+        </div>
       </div>
     </div>
   </div>
