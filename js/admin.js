@@ -54,6 +54,8 @@ Descripción:
 ==============================================================================*/
 
 function asignaVenByID(ven, name){
+  var sound = document.getElementById("beepBtn");
+  sound.play();
   ultName.once('value').then(function(snapshot){
     penUltName.set(snapshot.val());
   })

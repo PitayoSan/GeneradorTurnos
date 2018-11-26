@@ -39,6 +39,8 @@ function myTimer() {
 }
 
 ventanillas.on('value', function(snapshot) {
+  var sound = document.getElementById("beepBtn");
+  sound.play();
   var ultVen = snapshot.child('ult').val();
   var penUlt = snapshot.child('penUlt').val();
   var ultVenVal = snapshot.child('ult').val();
