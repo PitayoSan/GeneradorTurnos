@@ -41,11 +41,11 @@ function myTimer() {
 ventanillas.on('value', function(snapshot) {
   var ultVen = snapshot.child('ult').val();
   var penUlt = snapshot.child('penUlt').val();
-  var ultVenVal = snapshot.child('ultVenVal').val();
-  var penUltVal = snapshot.child('penUltVal').val();
-  ventanillas.once('value').then(function(snapshot){
-    document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + ultVenVal + " | Asistente: " + snapshot.child("ultName").val();
-    document.getElementById("pultT").innerHTML = "Penultimo turno: " + penUltVal + " | Asistente: " + snapshot.child("penUltName").val();
+  var ultVenVal = snapshot.child('ult').val();
+  var penUltVal = snapshot.child('penUlt').val();
+  nombres.once('value').then(function(snapshot){
+    document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + ultVenVal + " | Asistente: " + snapshot.child(ultVenVal).val();
+    document.getElementById("pultT").innerHTML = "Penultimo turno: " + penUltVal + " | Asistente: " + snapshot.child(penUltVal).val();
   })
 
 })

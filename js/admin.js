@@ -12,7 +12,7 @@ var ven7 = ventanillas.child("7");
 var ven8 = ventanillas.child("8");
 var venUlt = ventanillas.child("ult");
 var ultName = ventanillas.child("ultName");
-var penUltName ventanillas.child("penUltName");
+var penUltName = ventanillas.child("penUltName");
 var penVenUlt = ventanillas.child("penUlt");
 var ultVal = ventanillas.child("ultVenVal");
 var penUltVal = ventanillas.child("penUltVal");
@@ -54,10 +54,12 @@ Descripción:
 ==============================================================================*/
 
 function asignaVenByID(ven, name){
-  penUltName.set(name);
+  ultName.once('value').then(function(snapshot){
+    penUltName.set(snapshot.val());
+  })
+  ultName.set(name);
   venUlt.once('value').then(function(snapshot) {
     ventanillas.child('penUlt').set(penultimo);
-    ultName.set(name);
     penultimo = snapshot.val();
   })
   venUlt.set(ven);
