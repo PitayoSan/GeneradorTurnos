@@ -12,6 +12,7 @@ var ven7 = ventanillas.child("7");
 var ven8 = ventanillas.child("8");
 var venUlt = ventanillas.child("ult");
 var ultName = ventanillas.child("ultName");
+var penUltName ventanillas.child("penUltName");
 var penVenUlt = ventanillas.child("penUlt");
 var ultVal = ventanillas.child("ultVenVal");
 var penUltVal = ventanillas.child("penUltVal");

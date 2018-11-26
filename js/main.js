@@ -44,12 +44,8 @@ ventanillas.on('value', function(snapshot) {
   var ultVenVal = snapshot.child('ultVenVal').val();
   var penUltVal = snapshot.child('penUltVal').val();
   ventanillas.once('value').then(function(snapshot){
-    var name1 = snapshot.child("ultName").val();
-    var name2 = snapshot.child("penUltName").val();
-  })
-  nombres.once('value').then(function(snapshot){
-    document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + ultVenVal + " | Asistente: " + name1;
-    document.getElementById("pultT").innerHTML = "Penultimo turno: " + penUltVal + " | Asistente: " + name2;
+    document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + ultVenVal + " | Asistente: " + snapshot.child("ultName").val();
+    document.getElementById("pultT").innerHTML = "Penultimo turno: " + penUltVal + " | Asistente: " + snapshot.child("penUltName").val();
   })
 
 })
