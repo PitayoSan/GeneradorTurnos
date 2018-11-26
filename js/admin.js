@@ -11,6 +11,7 @@ var ven6 = ventanillas.child("6");
 var ven7 = ventanillas.child("7");
 var ven8 = ventanillas.child("8");
 var venUlt = ventanillas.child("ult");
+var ultName = ventanillas.child("ultName");
 var penVenUlt = ventanillas.child("penUlt");
 var ultVal = ventanillas.child("ultVenVal");
 var penUltVal = ventanillas.child("penUltVal");
@@ -51,9 +52,13 @@ function setTurn(x){
 Descripción:
 ==============================================================================*/
 
-function asignaVenByID(ven){
+function asignaVenByID(ven, name){
+  ultName.once('value').then(function(snapshot){
+    penUltName=snapshot.val();
+  })
   venUlt.once('value').then(function(snapshot) {
     ventanillas.child('penUlt').set(penultimo);
+    ultName.set(name);
     penultimo = snapshot.val();
   })
   venUlt.set(ven);
@@ -110,35 +115,35 @@ asignado un turno a ella
 ==============================================================================*/
 function available1(){
   genTurn();
-  asignaVenByID(1);
+  asignaVenByID(1,"Chuy");
 }
 function available2(){
   genTurn();
-  asignaVenByID(2);
+  asignaVenByID(2,"Albino");
 }
 function available3(){
   genTurn();
-  asignaVenByID(3);
+  asignaVenByID(3,"Jesus");
 }
 function available4(){
   genTurn();
-  asignaVenByID(4);
+  asignaVenByID(4,"Josue");
 }
 function available5(){
   genTurn();
-  asignaVenByID(5);
+  asignaVenByID(5,"Carlos");
 }
 function available6(){
   genTurn();
-  asignaVenByID(6);
+  asignaVenByID(6,"Lety");
 }
 function available7(){
   genTurn();
-  asignaVenByID(7);
+  asignaVenByID(7,"Cesar");
 }
 function available8(){
   genTurn();
-  asignaVenByID(8);
+  asignaVenByID(8,"Daniel");
 }
 
 function updateTurn() {
