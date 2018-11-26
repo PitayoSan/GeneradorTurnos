@@ -44,8 +44,8 @@ ventanillas.on('value', function(snapshot) {
   var ultVenVal = snapshot.child('ultVenVal').val();
   var penUltVal = snapshot.child('penUltVal').val();
   ventanillas.once('value').then(function(snapshot){
-    var name1 = snapshot.child("ultName").value();
-    var name2 = snapshot.child("penUltName").value();
+    var name1 = snapshot.child("ultName").val();
+    var name2 = snapshot.child("penUltName").val();
   })
   nombres.once('value').then(function(snapshot){
     document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + ultVenVal + " | Asistente: " + name1;
