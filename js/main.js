@@ -43,14 +43,15 @@ ventanillas.on('value', function(snapshot) {
   var penUlt = snapshot.child('penUlt').val();
   var ultVenVal = snapshot.child('ultVenVal').val();
   var penUltVal = snapshot.child('penUltVal').val();
-  nombres.once('value').then(function(snapshot){
-    document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + ultVenVal + " | Asistente: ";
-    document.getElementById("pultT").innerHTML = "Penultimo turno: " + penUltVal + " | Asistente: ";
-  })
   ventanillas.once('value').then(function(snapshot){
-    document.getElementById("ultT").innerHTML = document.getElementById("ultT").innerHTML + snapshot.child("ultName").value();
-    document.getElementById("pultT").innerHTML = document.getElementById("ultT").innerHTML + snapshot.child("penUltName").value();
+    var name1 = snapshot.child("ultName").value();
+    var name2 = snapshot.child("penUltName").value();
   })
+  nombres.once('value').then(function(snapshot){
+    document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + ultVenVal + " | Asistente: " + name1;
+    document.getElementById("pultT").innerHTML = "Penultimo turno: " + penUltVal + " | Asistente: " + name2;
+  })
+
 })
 
 penVenUlt.on('value', function(snapshot){
