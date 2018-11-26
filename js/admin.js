@@ -54,9 +54,7 @@ Descripción:
 ==============================================================================*/
 
 function asignaVenByID(ven, name){
-  ultName.once('value').then(function(snapshot){
-    penUltName=snapshot.val();
-  })
+  penUltName.set(name);
   venUlt.once('value').then(function(snapshot) {
     ventanillas.child('penUlt').set(penultimo);
     ultName.set(name);
