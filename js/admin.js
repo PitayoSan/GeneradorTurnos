@@ -1,7 +1,10 @@
-/*    Obtener path's de los childs por separado    */
+//Variable que obtiene referencia a la Base de Datos
 var database = firebase.database();
+//Variables que obtienen referencia a los contenedores de la Base de Datos
 var turno = database.ref("turno");
 var ventanillas = database.ref("ventanillas");
+var nombres = database.ref("nombres");
+//Variables que obtienen referencia a hijos especificos
 var ven1 = ventanillas.child("1");
 var ven2 = ventanillas.child("2");
 var ven3 = ventanillas.child("3");
@@ -10,75 +13,88 @@ var ven5 = ventanillas.child("5");
 var ven6 = ventanillas.child("6");
 var ven7 = ventanillas.child("7");
 var ven8 = ventanillas.child("8");
-var venUlt = ventanillas.child("ult");
-var ultName = ventanillas.child("ultName");
-var penUltName = ventanillas.child("penUltName");
-var penVenUlt = ventanillas.child("penUlt");
-var ultVal = ventanillas.child("ultVenVal");
-var penUltVal = ventanillas.child("penUltVal");
-var penultimo=0;
+var ventanaActual = ventanillas.child("ult");
+var nombreActual = ventanillas.child("ultName");
+var nombreAnterior = ventanillas.child("penUltName");
+var ventanaPrevia = ventanillas.child("penUlt");
+var turnoActual = ventanillas.child("ultVenVal");
+var turnoAnterior = ventanillas.child("penUltVal");
+//Variables de ventana y nombre previos. Se inicializan con los datos de la base de datos
+var penultimaVentana=ventanaPrevia;
+var penultimoNombre=nombreAnterior;
+
+//Funciones para obtener ventana y nombres previos
+//====================================================
 
 function getPenUltVenVal() {
-  penVenUlt.once('value').then(function(snapshot){
-    penultimo = snapshot.val();
+  ventanaPrevia.once('value').then(function(snapshot){
+    penultimaVentana = snapshot.val();
+  })
+  nombreAnterior.once('value').then(function(snapshot){
+    penultimoNombre = snapshot.val();
   })
 }
 
 
-/*==============================================================================
-turno = direccion de firebase
-t     = elemento del documento donde va "turnos"
-turn  = numero de turno
+//Descripción: Genera un nuevo turno en función del turno actual
+//El nuevo turno generado será el turno almacenado en la variable turno,
+//y por ende, la variable turno aumentará una unidad
+//=====================================================================
 
-Descripción: Genera un nuevo turno en función del turno actual
-==============================================================================*/
 function genTurn() {
+  turnoActual.once('value').then(function(snapshot){
+    turnoAnterior.set(snapshot.val());
+  })
   turno.once('value').then(function(snapshot){
-    setTurn(snapshot.val()+1);
-    ventanillas.child('ultVenVal').set(snapshot.val());
-    ventanillas.child('penUltVal').set(snapshot.val()-1);
+    turnoActual.set(snapshot.val());
+    if(snapshot.val() == 99) {
+      setTurn(1);
+    } else {
+      setTurn(snapshot.val()+1);
+    }
   })
 }
 
-/*==============================================================================
-x = numero de turno
+//Descripción: Actualiza el turno en la base de datos
+//=====================================================
 
-Descripción: Actualiza el turno en la base de datos
-==============================================================================*/
-function setTurn(x){
-  turno.set(x);
+function setTurn(numeroTurno){
+  turno.set(numeroTurno);
 }
 
-/*==============================================================================
+/*
 Descripción:
-==============================================================================*/
+-reproduce el sonido
+-Actualiza las variables del nombre actual y el nombre anterior
+-Actualiza las variables de la ventana actual y la ventana anterior
+==============================================================================
+*/
 
 function asignaVenByID(ven, name){
   var sound = document.getElementById("beepBtn");
   sound.play();
-  ultName.once('value').then(function(snapshot){
-    penUltName.set(snapshot.val());
+  nombreActual.once('value').then(function(snapshot){
+    ventanillas.child('penUltName').set(penultimoNombre);
+    penultimoNombre = snapshot.val();
   })
-  ultName.set(name);
-  venUlt.once('value').then(function(snapshot) {
-    ventanillas.child('penUlt').set(penultimo);
-    penultimo = snapshot.val();
+  nombreActual.set(name);
+  ventanaActual.once('value').then(function(snapshot) {
+    ventanillas.child('penUlt').set(penultimaVentana);
+    penultimaVentana = snapshot.val();
   })
-  venUlt.set(ven);
+  ventanaActual.set(ven);
   turno.once('value').then(function(snapshot){
-      ventanillas.child(ven).set(snapshot.val()%100);
+      ventanillas.child(ven).set(snapshot.val());
   })
 }
 
-/*==============================================================================
-t1 = Último turno
-t2 = Penúltimo turno
-t3 = Antepenúltimo turno
-t4 = Anteantepenúltimo turno
+function cambiarNombreAnterior() {
 
-Descripción: Obtiene los elementos del documento y luego los actualiza con la
-información correcta.
-==============================================================================*/
+}
+
+//Descripción: Obtiene los elementos de la página web y luego los actualiza con la información correcta
+//=====================================================================================================
+
 ven1.on('value', function(snapshot){
   document.getElementById("0").innerHTML = "Turno: " + snapshot.val() + " | Asistente: Chuy";
 })
@@ -112,10 +128,11 @@ ven8.on('value', function(snapshot){
 })
 
 
-/*==============================================================================
-Descripción: Actualiza el estado de una ventanilla a "false" (ocupado) y es
-asignado un turno a ella
-==============================================================================*/
+
+//Descripción: Actualiza el estado de una ventanilla asignandole su turno correspondiente y llama a otra función
+//para actualizar la base de datos
+//=================================================================================================================
+
 function available1(){
   genTurn();
   asignaVenByID(1,"Chuy");
@@ -149,9 +166,13 @@ function available8(){
   asignaVenByID(8,"Daniel");
 }
 
+//Descripción: actualiza el valor del turno actual en la base de datos segun lo que el usuario ingresa en la casilla
+//==================================================================================================================
 function updateTurn() {
-  turno.set(parseInt(document.getElementById("tfDesp").value));
-  document.getElementById("tfDesp").value = "";
+  if(parseInt(document.getElementById("tfDesp").value) < 100 && parseInt(document.getElementById("tfDesp").value) > 0) {
+    turno.set(parseInt(document.getElementById("tfDesp").value));
+    document.getElementById("tfDesp").value = "";
+  }
 }
 
 var myVar = setInterval(function() {

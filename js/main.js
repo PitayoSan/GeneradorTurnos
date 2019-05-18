@@ -1,34 +1,19 @@
-/*    Obtener path's de los childs por separado    */
+//Variable que obtiene referencia a la Base de Datos
 var database = firebase.database();
+//Variables que obtienen referencia a los contenedores de la Base de Datos
 var turno = database.ref("turno");
-var desp = database.ref("desp");
 var nombres = database.ref("nombres");
 var ventanillas = database.ref("ventanillas");
-var venUlt = ventanillas.child("ult");
-var penVenUlt = ventanillas.child("penUlt");
-var ultVal = ventanillas.child("ultVenVal");
-var penUltVal = ventanillas.child("penUltVal");
-var reg = database.ref("registro");
-var t1 = document.getElementById("0");
-var t2 = document.getElementById("1");
+//Variables que obtienen referencia a hijos especificos
+var turnoActual = ventanillas.child("ultVenVal");
+var turnoAnterior = ventanillas.child("penUltVal");
+var nombreActual = ventanillas.child("ultName");
+var nombreAnterior = ventanillas.child("penUltName");
 
+//Funciones del reloj
+//Reloj obtenido de: https://codepen.io/Tcip/pen/BNKjeN
+//================================================
 
-'=============================================================================='
-'|||||||||||||||||||||||||||||       Metodo       |||||||||||||||||||||||||||||'
-'=============================================================================='
-
-/*==============================================================================
-t1 = Último turno
-t2 = Penúltimo turno
-t3 = Antepenúltimo turno
-t4 = Anteantepenúltimo turno
-
-Descripción: Obtiene los elementos del documento y luego los actualiza con la
-información correcta.
-==============================================================================*/
-
-/* reloj */
-// obtenido de: https://codepen.io/Tcip/pen/BNKjeN
 var myVar = setInterval(function() {
   myTimer();
 }, 1000);
@@ -38,30 +23,44 @@ function myTimer() {
   document.getElementById("clock").innerHTML = new Date().toLocaleTimeString();
 }
 
+/*
 ventanillas.on('value', function(snapshot) {
   var sound = document.getElementById("beepBtn");
   sound.play();
-  var ultVen = snapshot.child('ult').val();
-  var penUlt = snapshot.child('penUlt').val();
-  var ultVenVal = snapshot.child('ult').val();
-  var penUltVal = snapshot.child('penUlt').val();
+  var ventanaActualValor = snapshot.child('ult').val();
+  var ventanaAnteriorValor = snapshot.child('penUlt').val();
+  var turnoActualValor = ventanillas.child("ultVenVal").val();
+  var turnoAnteriorValor = ventanillas.child("penUltVal").val();
+  var nombreActualValor = ventanillas.child("ultName").val();
+  var nombreAnteriorValor = ventanillas.child("penUltName").val();
+  //document.getElementById("ultT").innerHTML =  "Turno Actual:    " + turnoActualValor + " | Asistente: " + nombreActualValor;
+  //  document.getElementById("pultT").innerHTML = "Turno Anterior: " + turnoAnteriorValor + " | Asistente: " + nombreAnteriorValor;
+  
   nombres.once('value').then(function(snapshot){
     document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + ultVenVal + " | Asistente: " + snapshot.child(ultVenVal).val();
-    document.getElementById("pultT").innerHTML = "Penultimo turno: " + penUltVal + " | Asistente: " + snapshot.child(penUltVal).val();
+    document.getElementById("pultT").innerHTML = "Penultimo turno: " + turnoAnterior + " | Asistente: " + snapshot.child(penUltVal).val();
   })
+  
 
 })
+*/
 
-penVenUlt.on('value', function(snapshot){
-  var penUltVenVal = snapshot.val();
-  penUltVal.once('value').then(function(snapshot){
-    document.getElementById("pultT").innerHTML = "Penultimo turno: " + penUltVenVal + " | Asistente: " + snapshot.val();
+
+//Descripción: Obtiene los elementos de la base de datos y luego los actualiza en la página web
+//=============================================================================================
+
+nombreAnterior.on('value', function(snapshot){
+  var nombreAnteriorValor = snapshot.val();
+  turnoAnterior.once('value').then(function(snapshot){
+    document.getElementById("pultT").innerHTML = "Penultimo turno: " + snapshot.val() + " | Asistente: " + nombreAnteriorValor;
   })
 })
 
-venUlt.on('value', function(snapshot) {
-  var ultVen = snapshot.val();
-  ultVal.once('value').then(function(snapshot){
-    document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + snapshot.val() + " | Asistente: " + ultVen;
+nombreActual.on('value', function(snapshot) {
+  var nombreActualValor = snapshot.val();
+  turnoActual.once('value').then(function(snapshot){
+    document.getElementById("ultT").innerHTML =  "Ultimo turno:    " + snapshot.val() + " | Asistente: " + nombreActualValor;
   })
 })
+
+
